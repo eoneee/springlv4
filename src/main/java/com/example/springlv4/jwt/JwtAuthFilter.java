@@ -56,8 +56,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         SecurityContextHolder.setContext(context);
     }
 
-    //위의 if(token != null) 여기에서 Token 에 대한 오류가 발생했을 때, Exception 한 결과값을 Client 에게 넘김
-    //validateToken() 메소드에서 false라면, jwtExceptionHandler() 실행 --> Client 로 반환
+    //위의 if(token != null)에서 Token 에 대한 오류가 발생했을 때, Exception 한 결과값을 Client 에게 넘김
+    //validateToken() 메소드에서 false라면, jwtExceptionHandler() 실행 -> Client 로 반환
     public void jwtExceptionHandler(HttpServletResponse response, String msg, int statusCode) {
         response.setStatus(statusCode);
         response.setContentType("application/json");

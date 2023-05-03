@@ -8,4 +8,5 @@ import lombok.Getter;
 @AllArgsConstructor
 public class CustomException extends RuntimeException{
     private final StatusEnum statusEnum;
+    //StatusEnum Entity로 선언해놓은 예외들
 }

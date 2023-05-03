@@ -39,6 +39,7 @@ public class CrudController {
     //UserDetailsImpl userDetails: 인증 객체를 만들 때, Principal 부분에 userDetails 를 넣었기 때문에, userDetails 를 파라미터로 받아올 수 있었음
     public CrudResponseDto createCrud(@RequestBody CrudRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         //브라우저에서 요청해온 데이터를 잘 불러와서 서비스에 던져줌
+        //@Principal : 계정 상태 정보
 
         Crud crud = new Crud(requestDto);
         crud.addUser(userDetails.getUser());
@@ -66,16 +67,10 @@ public class CrudController {
     @PutMapping("/post/{id}")
     //@PathVariable: URL 경로에 변수를 넣기, Long id: 담을 데이터,
     //@RequestBody: HTTP Method 안의 body 값을 Mapping(key:value 로 짝지어줌)
-//    public ResponseEntity updateCrud(@PathVariable Long id, @RequestBody CrudRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        return crudService.updateCrud(id,requestDto,userDetails.getUser());
-//    }
     public CrudResponseDto updateCrud(@PathVariable Long id, @RequestBody CrudRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return crudService.updateCrud(id,requestDto,userDetails.getUser());
     }
-    //삭제
-//    @DeleteMapping("/post/{id}")
-//    public ResponseEntity deleteCrud(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        return crudService.deleteCrud(id,userDetails.getUser());
+
 
     //삭제
     @DeleteMapping("/post/{id}")

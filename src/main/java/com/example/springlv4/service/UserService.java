@@ -75,6 +75,7 @@ public class UserService {
             throw new IllegalArgumentException("비밀번호는 8자 이상, 15자 이하 알파벳 대/소문자, 숫자, 특수문자 로만 이루어져야 합니다.");
             //형식에 맞지 않으면 예외처리, 메세지 리턴
         }
+
         password = passwordEncoder.encode(signupRequestDto.getPassword());
         //저장하기전에 인코딩
 
@@ -87,6 +88,7 @@ public class UserService {
     @Transactional(readOnly = true)
     //프록시 객체가 생성되어 자동으로 commit 혹은 rollback을 진행해줌
     public void login(LoginRequestDto loginRequestDto,HttpServletResponse response) {
+        //HttpServletResponse, JWT토큰 생성 된 후
         String username = loginRequestDto.getUsername();
         String password = loginRequestDto.getPassword();
         //requestDto에서 값들을 가져옴, httpresponse로 jwt토큰 돌려줘야함
@@ -102,7 +104,10 @@ public class UserService {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
             //users에서 가져온 비밀번호 값과 주어진 password가 다를 때 예외 처리
         }
+
+
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, jwtUtil.createToken(user.getUsername(),user.getRole()));
-        //모든 예외가 아닐 때 header에 response를 해준다. jwtUtil에서 만든 토큰을 (users에서 Username을 가져와 create)
+        //모든 예외가 아닐 때 header에 권한을 response를 해준다.
+        //jwtUtil에서 만든 토큰을 (users에서 Username을 가져와 create)
     }
 }
